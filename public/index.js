@@ -1,6 +1,6 @@
 const user = 'huggablesquare';
 
-fetch(`/letterboxd/diary/${user}`)
+fetch(`diary/${user}`)
 	.then((res) => res.json())
 	.then((movies) => {
 		$(document).ready(() => {
