@@ -40,3 +40,43 @@ body {
 .fc-content {
 	text-overflow: ellipsis;
 }
+
+.lb-spinner {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	border-radius: 8px;
+	margin-right: 7px;
+	position: relative;
+	vertical-align: middle;
+	top: -1px;
+	animation: spinY 2s infinite;
+	animation-timing-function: cubic-bezier(.3,.64,.69,.36);
+}
+
+@keyframes spinY {
+	0% {
+		transform: rotateY(90deg);
+		background: #ff9933;
+	}
+	33.3% {
+		transform: rotateY(270deg);
+		background: #ff9933;
+	}
+	33.31% {
+		transform: rotateY(90deg);
+		background: #66cc33;
+	}
+	66.6% {
+		transform: rotateY(270deg);
+		background: #66cc33;
+	}
+	66.61% {
+		transform: rotateY(90deg);
+		background: #99ccff;
+	}
+	100% {
+		transform: rotateY(270deg);
+		background: #99ccff;
+	}
+}
