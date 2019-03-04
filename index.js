@@ -6,20 +6,23 @@ const app = express();
 
 app.get('/diary/:user', async function (req, res) {
 	try {
-		let movies = [];
+		const movies = [];
 		let pages = [];
 
 		const initial = await request(`https://letterboxd.com/${req.params.user}/films/diary/`);
 		pages.push(initial);
 
 		let $ = cheerio.load(initial);
-		const newPages = await Promise.all($('.paginate-page > a').map((index, el) => request('https://letterboxd.com' + $(el).attr('href'))).get());
+		const length = parseInt($('.paginate-page:last-child > a').text());
+		for (let i = 2; i <= length; i++) {
+			pages.push(request(`https://letterboxd.com/${req.params.user}/films/diary/page/${i}/`));
+		}
 
-		pages = pages.concat(newPages);
+		pages = await Promise.all(pages);
 		pages.forEach((page) => {
 			$ = cheerio.load(page);
-			movies = movies.concat($('.edit-review-button').map((index, el) => {
-				let data = $(el).data();
+			movies.push(...$('.edit-review-button').map((index, el) => {
+				const data = $(el).data();
 				data.targetLink = $('.film-poster').eq(index).data('target-link');
 				return data;
 			}).get());
