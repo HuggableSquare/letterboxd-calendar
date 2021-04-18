@@ -39,4 +39,4 @@ app.get('/diary/:user', async function (req, res) {
 
 app.use(express.static('public'));
 
-app.listen(2693, '127.0.0.1');
+app.listen(2693);
